@@ -23,9 +23,14 @@ public class Insumo {
         this.quantidade += qtd;
     }
 
-    public void removerQuantidade(int qtd) {
-        this.quantidade -= qtd;
+    public void removerQuantidade(int qtd) throws IllegalArgumentException {
+        if (qtd <= this.quantidade) {
+            this.quantidade -= qtd;
+        } else {
+            throw new IllegalArgumentException("Quantidade insuficiente no estoque para remover.");
+        }
     }
+
 
     @Override
     public String toString() {

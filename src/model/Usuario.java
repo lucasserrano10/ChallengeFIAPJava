@@ -19,6 +19,6 @@ public class Usuario {
     }
 
     public void login() {
-        System.out.println("Usuário " + nome + " logado como " + cargo + ", com CPF de número " + cpf);
+        System.out.println("\nUsuário " + nome + "\nlogado como " + cargo + "\ncom CPF de número " + cpf);
     }
 }

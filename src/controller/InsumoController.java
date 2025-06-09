@@ -15,7 +15,7 @@ public class InsumoController {
     public void menu() {
         int opc;
         do {
-            System.out.println("\n1 - Cadastrar Insumo\n2 - Listar Estoque\n3 - Registrar Movimento\n4 - Login Usuário\n0 - Sair");
+            System.out.println("\n1 - Cadastrar Insumo\n2 - Listar Estoque\n3 - Registrar Movimento\n4 - Cadastrar Produto Químico\n5 - Cadastrar Insumo Perecível\n6 - Login Usuário \n0 - Sair");
             opc = sc.nextInt();
             sc.nextLine();
             switch (opc) {
@@ -40,7 +40,21 @@ public class InsumoController {
                         System.out.println("Você precisa estar logado para registrar um movimento.");
                     }
                 }
-                case 4 -> loginUsuario();
+                case 4 -> {
+                    if (usuarioLogado) {
+                        cadastrarProdutoQuimico();
+                    } else {
+                        System.out.println("Você precisa estar logado para registrar um produto químico.");
+                    }
+                }
+                case 5 -> {
+                    if (usuarioLogado) {
+                        cadastrarInsumoPerecivel();
+                    } else {
+                        System.out.println("Você precisa estar logado para registrar um produto perecível.");
+                    }
+                }
+                case 6 -> loginUsuario();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -92,4 +106,39 @@ public class InsumoController {
         usuarioLogado = true; // Marca o usuário como logado
         System.out.println("Login realizado com sucesso!");
     }
+
+    private void cadastrarProdutoQuimico() {
+        System.out.print("ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+        System.out.print("Quantidade: ");
+        int qtd = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Nível Toxicidade: ");
+        int toxicidade = sc.nextInt();
+
+        ProdutoQuimico pq = new ProdutoQuimico(id, nome, qtd, toxicidade);
+        repo.salvar(pq);
+        System.out.println("Produto químico cadastrado com sucesso!");
+    }
+
+    private void cadastrarInsumoPerecivel() {
+        System.out.print("ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+        System.out.print("Quantidade: ");
+        int qtd = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Data de validade (yyyy-MM-dd): ");
+        String dataValidade = sc.nextLine();
+
+        InsumoPerecivel ip = new InsumoPerecivel(id, nome, qtd, dataValidade);
+        repo.salvar(ip);
+        System.out.println("Insumo perecível cadastrado com sucesso!");
+    }
+
 }
